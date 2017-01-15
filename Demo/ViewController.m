@@ -14,6 +14,8 @@
   [_indeterminateProgressView addGestureRecognizer:tapper];
   tapper = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
   [_indeterminateProgressView2 addGestureRecognizer:tapper];
+  // Attempt to make the frame of the apple progressview much taller.
+  // Note that it fails to make the progressview taller.
   CGRect frame = _progressView.frame;
   frame.size.height = _indeterminateProgressView.frame.size.height;
   _progressView.frame = frame;

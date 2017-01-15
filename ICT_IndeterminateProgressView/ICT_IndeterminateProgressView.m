@@ -39,7 +39,7 @@ static void ParallelogramFill(CGRect r) {
 
 - (void)initializeIndeterminateProgressView {
   [self setBackgroundColor:[UIColor colorWithWhite:(CGFloat)(0xa8/255.0) alpha:1]];
-  [self setForegroundColor:[UIColor colorWithRed:(CGFloat)(0x0A/255.0)
+  [self setProgressTintColor:[UIColor colorWithRed:(CGFloat)(0x0A/255.0)
                                 green:(CGFloat)(0x5F/255.0)
                                  blue:(CGFloat)(0xFC/255.)
                                 alpha:1]];
@@ -48,13 +48,18 @@ static void ParallelogramFill(CGRect r) {
 - (void)dealloc {
   [_timer invalidate];
   [_timer release];
-  [_foregroundColor release];
+  [_progressTintColor release];
+  [_trackTintColor release];
   [super dealloc];
 }
 
 - (void)drawRect:(CGRect)rect {
   CGRect frame = [self bounds];
-  [[self foregroundColor] set];
+  if ([self trackTintColor]) {
+    [[self trackTintColor] set];
+    UIRectFill(frame);
+  }
+  [[self progressTintColor] set];
   CGRect remainder;
   if (6 < frame.size.height) {
     UIRectFrame(frame);
@@ -107,11 +112,20 @@ static void ParallelogramFill(CGRect r) {
   }
 }
 
-- (void)setForegroundColor:(UIColor *)color {
-  if (_foregroundColor != color) {
-    [_foregroundColor release];
-    _foregroundColor = color;
-    [_foregroundColor retain];
+- (void)setProgressTintColor:(UIColor *)color {
+  if (_progressTintColor != color) {
+    [_progressTintColor release];
+    _progressTintColor = color;
+    [_progressTintColor retain];
+    [self setNeedsDisplay];
+  }
+}
+
+- (void)setTrackTintColor:(UIColor *)color {
+  if (_trackTintColor != color) {
+    [_trackTintColor release];
+    _trackTintColor = color;
+    [_trackTintColor retain];
     [self setNeedsDisplay];
   }
 }

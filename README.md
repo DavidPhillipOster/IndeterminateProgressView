@@ -10,3 +10,9 @@ When in indeterminate mode, it covers and hides UIProgressView's root layer with
 If Iup expects to be able to flip a progress meter between determinate and indeterminate mode, then WNProgressView.m seems like a good starting place.
 
 If, for some reason, you wanted an indeterminate progress meter on iOS that looks like it belongs on a Mac, you'd just make one piece of the barber pole is a image layer, initialized with a CGGradient that was a sine wave between a saturated blue and a blue that was desaturated almost to white.
+
+But, currently Apple constrains the native UIProgressView to be 2 high. So, a IndeterminateProgressView that looks consistent should also be 2 high. At that size, I think my IndeterminateProgressView is good enogh.
+
+TODO:
+
+UIProgressView has a cornerRadius of 1. Setting \[self.layer setCornerRadius:1] does nothing, because I'm doing my drawing in the main layer instead of a sub layer.
